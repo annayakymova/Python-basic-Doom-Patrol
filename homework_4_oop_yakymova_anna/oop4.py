@@ -14,8 +14,7 @@ class Vehicle:
 
 
 #2.Create a child class Bus that will inherit all the variables and methods of the Vehicle class and will have seating_capacity own method
-    
- class Bus(Vehicle):
+class Bus(Vehicle):
 
     def __init__(self, max_speed, mileage, seating_capacity):
         super().__init__(max_speed, mileage)
