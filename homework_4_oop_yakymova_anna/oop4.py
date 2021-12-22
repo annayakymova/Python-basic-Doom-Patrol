@@ -15,7 +15,7 @@ class Vehicle:
 
 #2.Create a child class Bus that will inherit all the variables and methods of the Vehicle class and will have seating_capacity own method
     
-          class Bus(Vehicle):
+ class Bus(Vehicle):
 
     def __init__(self, max_speed, mileage, seating_capacity):
         super().__init__(max_speed, mileage)
@@ -80,16 +80,17 @@ for predators in (bear, wolf):
 
 #8*. Create class City with name, population instance attributes, return a new instance only when population > 1500, otherwise return message: "Your city is too small". Hint: use magic methods / patterns
 class City:
+
     def __init__(self, name, population):
-       self.name = name
-       self.population = population
+        self.name = name
+        self.population = population
 
-    def trust_population(self):
-        if self.population > 1500:
-             return self.population
-         else:
-             print("This city is very small.")
-
+    def __new__(cls, name, population):
+        new_instance = super(City, cls).__new__(cls)
+        if population > 1500:
+            return new_instance
+        else:
+            print("Your city is too small")
 
 
 
