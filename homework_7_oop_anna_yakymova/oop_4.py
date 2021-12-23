@@ -190,7 +190,7 @@ class Gardener:
 
 
 class Pests:
-    def __init__(self, pests_type, pests_quantity, plants)
+    def __init__(self, pests_type, pests_quantity, plants):
         self.pets_type = pests_type
         self.pests_quantity = pests_quantity
         self.plants = plants
