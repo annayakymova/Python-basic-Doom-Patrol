@@ -1,38 +1,35 @@
-import uuid
 import time
-from random import random, randint, choice
-from abc import abstractmethod, ABC
+import random
+import uuid
+from abc import ABC, abstractmethod
 
 
 class Animal(ABC):
-    types = ('Predators', 'Herbivores')
+    types = ("Herbivorous", "Predator")
 
     def __init__(self, power, speed):
         self.id = uuid.uuid4()
         self.max_power = power
         self.current_power = power
+        self.small_power = False
         self.speed = speed
-        self.is_out_of_a_power = False
 
     def eat(self, power):
         self.current_power += power
-            if self.current_power + power >= self.max_power:
-                self.current_power = self.max_power
+        if self.current_power + power >= self.max_power:
+            self.current_power = self.max_power
 
-
-    def lost_power(self, power):
+    def lose_power(self, power):
         self.current_power -= power
         if self.current_power - power <= 0:
-            self.is_out_of_a_power = True
+            self.small_power = True
 
     @abstractmethod
     def name(self):
         pass
 
-    def animal_information(self):
-        return self.name() + ' ' + str(self.id)
-
-
+    def animal_info(self):
+        return self.name() + '  ' + str(self.id)
 
 
 class Predator(Animal):
@@ -45,9 +42,7 @@ class Herbivorous(Animal):
         return self.types[0]
 
 
-
 class Forest:
-
     def __init__(self):
         self.animals = dict()
 
@@ -60,9 +55,8 @@ class Forest:
     def animals_count(self):
         return len(self.animals)
 
-
     @property
-    def hunting_possible(self):
+    def case_of_hunting(self):
         if self.animals_count() <= 1:
             return False
         return True
@@ -105,8 +99,6 @@ class Forest:
             self.remove_animal(victim)
 
 
-
-
 class AnimalGeneartor:
     def __iter__(self):
         return self
@@ -133,10 +125,12 @@ if __name__ == "__main__":
     print("Who leaves in the forest?")
     forest.print_animal_note()
 
-    print("Let`s start hunting!")
-    time.sleep(3)
-    while forest.any_predator_left() and forest.hunting_possible:
+    print("Go hunting!")
+
+    time.sleep(1)
+
+    while forest.any_predator_left() and forest.case_of_hunting:
         forest.start_hunting()
 
-    print("Are there any survivors?")
+    print("Has anyone survived?")
     forest.print_animal_note()
